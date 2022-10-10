@@ -1,6 +1,10 @@
 package com.example.chicken.controller;
 
 import com.example.chicken.domain.Chicken;
+import com.example.chicken.entity.ChickenEntity;
+import com.example.chicken.repository.ChickenRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +13,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/chicken")
 public class ChickenController {
+
+    @Autowired
+    private ChickenRepository repository;
 
     @GetMapping("/chicken")
     public ResponseEntity<String> findChickenCommunication (){
@@ -55,4 +62,17 @@ public class ChickenController {
                                  .build();
         return ResponseEntity.ok(chicken2);
     }
+
+    @PostMapping("/createChicken")
+    public ResponseEntity<ChickenEntity> createChicken (@RequestBody ChickenEntity chickenEntity){
+        ChickenEntity createdChicken = repository.save(chickenEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdChicken);
+    }
+
+    @GetMapping("/getchickenbyid")
+    public ResponseEntity<ChickenEntity> getChickenById(@RequestParam(name="getchickenbyid") int id){
+        ChickenEntity getChicken =  repository.findById(id).get();
+        return ResponseEntity.ok(getChicken);
+    }
 }
+

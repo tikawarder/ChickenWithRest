@@ -1,0 +1,5 @@
+CREATE TABLE store (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(250),
+eggnumber INT
+);

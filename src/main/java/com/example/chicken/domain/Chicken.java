@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 @Builder
 public class Chicken {
-    long id;
+    int id;
     String name;
     int eggNumber;
 }
